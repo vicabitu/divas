@@ -7,6 +7,7 @@ engine = create_engine('sqlite:///divas.db', echo=True)
 
 Base = declarative_base()
 
+
 class Cliente(Base):
     __tablename__ = 'cliente'
     id = Column(Integer, primary_key=True)
@@ -22,6 +23,7 @@ class Cliente(Base):
 
         return "Nombre: {} - Apellido: {}" .format(self.nombre, self.apellido)
 
+
 class Turno(Base):
     __tablename__ = 'turno'
     id = Column(Integer, primary_key=True)
@@ -29,6 +31,7 @@ class Turno(Base):
     fecha_creacion = Column(Date, index=True, nullable=False)
     fecha_realizado = Column(DateTime, index=True, nullable=False)
     fecha_cancelacion = Column(Date, index=True, nullable=False)
+
 
 class Servicio(Base):
     __tablename__ = 'servicio'
@@ -43,6 +46,7 @@ class Servicio(Base):
     def __str__(self):
         return "Servicio: {} - Precio: {}" .format(self.nombre, self.precio)
 
+
 class ControlGanancia(Base):
     __tablename__ = 'control_ganancia'
     id = Column(Integer, primary_key=True)
@@ -54,7 +58,6 @@ class ControlGanancia(Base):
         self.monto = monto
         self.fecha_de_inicio = fecha_de_inicio
         self.fecha_fin = fecha_fin
-
 
 
 Base.metadata.create_all(engine)
