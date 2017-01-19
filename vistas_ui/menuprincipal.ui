@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>menuprincipal</class>
+ <widget class="QMainWindow" name="menuprincipal">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>657</width>
+    <height>416</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Divas</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>300</y>
+      <width>151</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../imagenes/divas_logo.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>657</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>true</bool>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="menu_clientes">
+    <property name="title">
+     <string>Clientes</string>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
+    <addaction name="action_alta_Cliente"/>
+    <addaction name="action_baja_Cliente"/>
+    <addaction name="action_modificacion_cliente"/>
+   </widget>
+   <widget class="QMenu" name="menu_turnos">
+    <property name="title">
+     <string>Turnos</string>
+    </property>
+    <addaction name="action_nuevo_turno"/>
+   </widget>
+   <widget class="QMenu" name="menu_servicios">
+    <property name="title">
+     <string>Servicios</string>
+    </property>
+    <addaction name="action_alta_servicio"/>
+    <addaction name="action_modificacion_servicio"/>
+   </widget>
+   <addaction name="menu_clientes"/>
+   <addaction name="menu_servicios"/>
+   <addaction name="menu_turnos"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_alta_Cliente">
+   <property name="text">
+    <string>Alta</string>
+   </property>
+  </action>
+  <action name="action_baja_Cliente">
+   <property name="text">
+    <string>Baja</string>
+   </property>
+  </action>
+  <action name="action_nuevo_turno">
+   <property name="text">
+    <string>Nuevo turno</string>
+   </property>
+  </action>
+  <action name="action_alta_servicio">
+   <property name="text">
+    <string>Alta</string>
+   </property>
+  </action>
+  <action name="action_modificacion_cliente">
+   <property name="text">
+    <string>Modificacion</string>
+   </property>
+  </action>
+  <action name="action_modificacion_servicio">
+   <property name="text">
+    <string>Modificacion</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
