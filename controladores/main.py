@@ -8,7 +8,6 @@ from controladores.controlador_alta_cliente import *
 from controladores.controlador_alta_servicio import *
 from controladores.controlador_nuevo_turno import *
 
-
 class ControladorMenuPrincipal(QMainWindow):
 
     def __init__(self):
