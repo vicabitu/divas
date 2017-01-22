@@ -2,7 +2,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 
-from vistas_py.ventanaprincipal import Ui_ventanaprincipal
 from vistas_py.menuprincipal import Ui_menuprincipal
 from controladores.controlador_alta_cliente import *
 from controladores.controlador_alta_servicio import *
