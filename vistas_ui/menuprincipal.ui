@@ -79,9 +79,17 @@
     <addaction name="action_alta_servicio"/>
     <addaction name="action_modificacion_servicio"/>
    </widget>
+   <widget class="QMenu" name="menu_control_ganancia">
+    <property name="title">
+     <string>Control Ganancia</string>
+    </property>
+    <addaction name="action_generar_control"/>
+    <addaction name="action_listar_controles"/>
+   </widget>
    <addaction name="menu_clientes"/>
    <addaction name="menu_servicios"/>
    <addaction name="menu_turnos"/>
+   <addaction name="menu_control_ganancia"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_alta_Cliente">
@@ -112,6 +120,16 @@
   <action name="action_modificacion_servicio">
    <property name="text">
     <string>Modificacion</string>
+   </property>
+  </action>
+  <action name="action_generar_control">
+   <property name="text">
+    <string>Generar control</string>
+   </property>
+  </action>
+  <action name="action_listar_controles">
+   <property name="text">
+    <string>Listar controles</string>
    </property>
   </action>
  </widget>

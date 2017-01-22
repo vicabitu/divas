@@ -3,6 +3,9 @@ from PyQt5.QtWidgets import QDialog
 from vistas_py.form_alta_turno import *
 from modelo.modelo import *
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 class ControladorNuevoTurno(QDialog):
 
     def __init__(self):
@@ -14,7 +17,7 @@ class ControladorNuevoTurno(QDialog):
 
         self.form_nuevo_turno.list_servicios.addItem("Servicios agregados:")
 
-        self.form_nuevo_turno.combo_box_clientes.addItem("")
+        """self.form_nuevo_turno.combo_box_clientes.addItem("")
         self.form_nuevo_turno.combo_box_clientes.addItem("Juan Perez")
         self.form_nuevo_turno.combo_box_clientes.addItem("Carla Gonzalez")
         self.form_nuevo_turno.combo_box_clientes.addItem("Carlitos Gomez")
@@ -22,11 +25,32 @@ class ControladorNuevoTurno(QDialog):
         self.form_nuevo_turno.combo_box_servicios.addItem("")
         self.form_nuevo_turno.combo_box_servicios.addItem("Corte de pelo")
         self.form_nuevo_turno.combo_box_servicios.addItem("Cambio de aceite")
-        self.form_nuevo_turno.combo_box_servicios.addItem("Cambio de aros")
+        self.form_nuevo_turno.combo_box_servicios.addItem("Cambio de aros")"""
+
+        # conexion
+        engine = create_engine('sqlite:///divas.db', echo=True)
+
+        # sesion
+        Session = sessionmaker(bind=engine)
+        session = Session()
+
+        self.llenar_combo_clientes(session)
+        self.llenar_combo_servicios(session)
 
         self.form_nuevo_turno.combo_box_clientes.currentIndexChanged.connect(self.agregar_cliente)
         self.form_nuevo_turno.combo_box_servicios.currentIndexChanged.connect(self.agregar_servicio)
         self.form_nuevo_turno.btn_eliminas_servicio.clicked.connect(self.eliminar_servicio)
+
+    def llenar_combo_clientes(self, session):
+
+        for cliente in session.query(Cliente).all():
+            nombre_y_apellido = cliente.nombre + " " + cliente.apellido
+            self.form_nuevo_turno.combo_box_clientes.addItem(nombre_y_apellido)
+
+    def llenar_combo_servicios(self, session):
+
+        for servicio in session.query(Servicio).all():
+            self.form_nuevo_turno.combo_box_servicios.addItem(servicio.nombre)
 
 
     def agregar_servicio(self):
