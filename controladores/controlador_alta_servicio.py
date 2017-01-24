@@ -2,9 +2,11 @@
 Esta clase representa el controlador de la vista form_alta_servicio
 """
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from vistas_py.form_alta_servicio import Ui_altaservicio
 from modelo.modelo import *
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 class ControladorAltaServicio(QDialog):
@@ -19,12 +21,33 @@ class ControladorAltaServicio(QDialog):
 
     def guardar_servicio(self):
 
-        nombre = str(self.form_alta_servicio.text_nombre.text())
-        precio = str(self.form_alta_servicio.text_precio.text())
-        servicio = Servicio(nombre, precio)
+        # conexion
+        engine = create_engine('sqlite:///divas.db', echo=True)
 
-        print(servicio.__str__())
-        print("Servicio guardado")
+        # sesion
+        Session = sessionmaker(bind=engine)
+        session = Session()
 
+        try:
 
+            precio = float(self.form_alta_servicio.text_precio.text())
+            nombre = str(self.form_alta_servicio.text_nombre.text())
 
+            servicio_base = session.query(Servicio).filter(Servicio.nombre == nombre).first()
+
+            if servicio_base == None:
+                if self.form_alta_servicio.text_nombre.text() == "" or self.form_alta_servicio.text_precio.text() == "":
+                    QMessageBox.information(self, "Campos incompletos", "Debe completar todos los campos.")
+                else:
+                    servicio = Servicio(nombre, precio)
+                    self.form_alta_servicio.text_nombre.clear()
+                    self.form_alta_servicio.text_precio.clear()
+                    QMessageBox.information(self, "Servicio guardado", "Servicio guardado exitosamente")
+                    session.add(servicio)
+                    session.commit()
+            else:
+                QMessageBox.information(self, "Servicio ya existe",
+                                        "El servicio ya existe, intente darlo de alta nuevamente.")
+
+        except ValueError:
+            QMessageBox.warning(self, "Error", "El precio debe ser de tipo numerico")
