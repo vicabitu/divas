@@ -57,9 +57,12 @@ class Ui_menuprincipal(object):
         self.action_generar_control.setObjectName("action_generar_control")
         self.action_listar_controles = QtWidgets.QAction(menuprincipal)
         self.action_listar_controles.setObjectName("action_listar_controles")
+        self.action_listado_cliente = QtWidgets.QAction(menuprincipal)
+        self.action_listado_cliente.setObjectName("action_listado_cliente")
         self.menu_clientes.addAction(self.action_alta_Cliente)
         self.menu_clientes.addAction(self.action_baja_Cliente)
         self.menu_clientes.addAction(self.action_modificacion_cliente)
+        self.menu_clientes.addAction(self.action_listado_cliente)
         self.menu_turnos.addAction(self.action_nuevo_turno)
         self.menu_servicios.addAction(self.action_alta_servicio)
         self.menu_servicios.addAction(self.action_modificacion_servicio)
@@ -88,4 +91,5 @@ class Ui_menuprincipal(object):
         self.action_modificacion_servicio.setText(_translate("menuprincipal", "Modificacion"))
         self.action_generar_control.setText(_translate("menuprincipal", "Generar control"))
         self.action_listar_controles.setText(_translate("menuprincipal", "Listar controles"))
+        self.action_listado_cliente.setText(_translate("menuprincipal", "Listado"))
 
