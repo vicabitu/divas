@@ -8,6 +8,7 @@ from controladores.controlador_alta_servicio import *
 from controladores.controlador_nuevo_turno import *
 from controladores.controlador_baja_cliente import *
 from controladores.controlador_listado_clientes import *
+from controladores.controlador_listar_servicios import *
 
 class ControladorMenuPrincipal(QMainWindow):
 
@@ -17,6 +18,7 @@ class ControladorMenuPrincipal(QMainWindow):
         self.menu_principal = Ui_menuprincipal()
         self.menu_principal.setupUi(self)
 
+        self.menu_principal.action_modificacion_servicio.triggered.connect(self.listar_servicios)
         self.menu_principal.action_alta_Cliente.triggered.connect(self.alta_cliente)
         self.menu_principal.action_baja_Cliente.triggered.connect(self.baja_cliente)
         self.menu_principal.action_alta_servicio.triggered.connect(self.alta_servicio)
@@ -42,6 +44,11 @@ class ControladorMenuPrincipal(QMainWindow):
         print("alta servicio")
         als = ControladorAltaServicio()
         als.exec_()
+
+    def listar_servicios(self):
+        print("listar servicios")
+        ls = ControladorListarServicios()
+        ls.exec_()
 
     def alta_turno(self):
         print("Nuevo turno")
