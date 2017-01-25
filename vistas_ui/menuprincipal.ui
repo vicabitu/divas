@@ -65,6 +65,7 @@
     <addaction name="action_alta_Cliente"/>
     <addaction name="action_baja_Cliente"/>
     <addaction name="action_modificacion_cliente"/>
+    <addaction name="action_listado_cliente"/>
    </widget>
    <widget class="QMenu" name="menu_turnos">
     <property name="title">
@@ -130,6 +131,11 @@
   <action name="action_listar_controles">
    <property name="text">
     <string>Listar controles</string>
+   </property>
+  </action>
+  <action name="action_listado_cliente">
+   <property name="text">
+    <string>Listado</string>
    </property>
   </action>
  </widget>
