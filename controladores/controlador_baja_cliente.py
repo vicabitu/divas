@@ -27,3 +27,21 @@ class ControladorBajaCliente(QDialog):
         Session = sessionmaker(bind=engine)
         session = Session()
 
+        if self.form_alta_cliente.text_nombre.text() == "" or self.form_alta_cliente.text_apellido.text() == "":
+            QMessageBox.information(self, "Campos incompletos", "Debe completar todos los campos.")
+        else:
+            nombre = str(self.form_alta_cliente.text_nombre.text())
+            apellido = str(self.form_alta_cliente.text_apellido.text())
+
+            cliente_base = session.query(Cliente).filter(Cliente.nombre == nombre, Cliente.apellido == apellido).first()
+            print(cliente_base)
+
+            if cliente_base == None:
+                cliente = Cliente(nombre, apellido)
+                session.add(cliente)
+                session.commit()
+                self.close()
+            else:
+                print("El cliente existe")
+                QMessageBox.information(self, "Error",
+                                        "El cliente ya existe, intente darlo de alta nuevamente.")
