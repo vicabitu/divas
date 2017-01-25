@@ -34,12 +34,16 @@ class ControladorNuevoTurno(QDialog):
         Session = sessionmaker(bind=engine)
         session = Session()
 
+        self.form_nuevo_turno.combo_box_clientes.addItem("Clientes:")
         self.llenar_combo_clientes(session)
+        self.form_nuevo_turno.combo_box_servicios.addItem("Servicios:")
         self.llenar_combo_servicios(session)
 
         self.form_nuevo_turno.combo_box_clientes.currentIndexChanged.connect(self.agregar_cliente)
         self.form_nuevo_turno.combo_box_servicios.currentIndexChanged.connect(self.agregar_servicio)
         self.form_nuevo_turno.btn_eliminas_servicio.clicked.connect(self.eliminar_servicio)
+        self.form_nuevo_turno.btn_guardar.clicked.connect(self.guardar_turno)
+        self.form_nuevo_turno.btn_cancelar.clicked.connect(self.close)
 
     def llenar_combo_clientes(self, session):
 
@@ -55,8 +59,20 @@ class ControladorNuevoTurno(QDialog):
 
     def agregar_servicio(self):
 
-        servicio = self.form_nuevo_turno.combo_box_servicios.currentText()
-        indice = int(self.form_nuevo_turno.combo_box_servicios.currentIndex())
+        servicio_seleccionado = self.form_nuevo_turno.combo_box_servicios.currentText()
+
+        print(servicio_seleccionado)
+
+        rango = range(self.form_nuevo_turno.list_servicios.count())
+
+        for s in rango:
+            if self.form_nuevo_turno.list_servicios.item(s) != servicio_seleccionado:
+                self.form_nuevo_turno.list_servicios.addItem(servicio_seleccionado)
+            else:
+                print("El servicio ya esta agregado")
+
+
+        """indice = int(self.form_nuevo_turno.combo_box_servicios.currentIndex())
         #self.verificar_servicio(servicio)
         if self.verificar_servicio(servicio) == True:
             self.form_nuevo_turno.list_servicios.addItem(servicio)
@@ -64,7 +80,7 @@ class ControladorNuevoTurno(QDialog):
             print("El servicio ya esta en la lista")
 
 
-        """print(indice)
+        print(indice)
         self.form_nuevo_turno.list_servicios.addItem(servicio)
         self.form_nuevo_turno.combo_box_servicios.setItemText(indice, "")"""
 
@@ -82,9 +98,6 @@ class ControladorNuevoTurno(QDialog):
                 return False
 
 
-        #self.form_nuevo_turno.list_servicios.
-
-
     def agregar_cliente(self):
 
         cliente = self.form_nuevo_turno.combo_box_clientes.currentText()
@@ -92,4 +105,8 @@ class ControladorNuevoTurno(QDialog):
         self.form_nuevo_turno.text_cliente.setText(cliente)
 
     def eliminar_servicio(self):
-        print("Eliminar Servicio")
+        pass
+
+
+    def guardar_turno(self):
+        pass
