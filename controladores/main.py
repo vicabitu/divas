@@ -6,6 +6,7 @@ from vistas_py.menuprincipal import Ui_menuprincipal
 from controladores.controlador_alta_cliente import *
 from controladores.controlador_alta_servicio import *
 from controladores.controlador_nuevo_turno import *
+from controladores.controlador_baja_cliente import *
 
 class ControladorMenuPrincipal(QMainWindow):
 
@@ -16,6 +17,7 @@ class ControladorMenuPrincipal(QMainWindow):
         self.menu_principal.setupUi(self)
 
         self.menu_principal.action_alta_Cliente.triggered.connect(self.alta_cliente)
+        self.menu_principal.action_baja_Cliente.triggered.connect(self.baja_cliente)
         self.menu_principal.action_alta_servicio.triggered.connect(self.alta_servicio)
         self.menu_principal.action_nuevo_turno.triggered.connect(self.alta_turno)
 
@@ -23,6 +25,11 @@ class ControladorMenuPrincipal(QMainWindow):
         print("alta cliente")
         ac = ControladorAltaCliente()
         ac.exec_()
+
+    def baja_cliente(self):
+        print("baja cliente")
+        bc = ControladorBajaCliente()
+        bc.exec_()
 
     def alta_servicio(self):
         print("alta servicio")
