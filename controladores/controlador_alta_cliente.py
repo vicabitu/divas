@@ -2,11 +2,11 @@
 Esta clase representa el controlador de la vista form_alta_cliente
 """
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from vistas_py.form_alta_cliente import Ui_AltaCLiente
+from modelo.modelo import *
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from modelo.modelo import Cliente
 
 class ControladorAltaCliente(QDialog):
 
@@ -27,15 +27,21 @@ class ControladorAltaCliente(QDialog):
         Session = sessionmaker(bind=engine)
         session = Session()
 
-        nombre = str(self.form_alta_cliente.text_nombre.text())
-        apellido = str(self.form_alta_cliente.text_apellido.text())
-
-        cliente_base = session.query(Cliente).filter(Cliente.nombre == nombre).first()
-        print(cliente_base)
-
-        if cliente_base == None:
-            cliente = Cliente(2, nombre, apellido)
-            session.add(cliente)
-            session.commit()
+        if self.form_alta_cliente.text_nombre.text() == "" or self.form_alta_cliente.text_apellido.text() == "":
+            QMessageBox.information(self, "Campos incompletos", "Debe completar todos los campos.")
         else:
-            print("El cliente existe")
+            nombre = str(self.form_alta_cliente.text_nombre.text())
+            apellido = str(self.form_alta_cliente.text_apellido.text())
+
+            cliente_base = session.query(Cliente).filter(Cliente.nombre == nombre, Cliente.apellido == apellido).first()
+            print(cliente_base)
+
+            if cliente_base == None:
+                cliente = Cliente(nombre, apellido)
+                session.add(cliente)
+                session.commit()
+                self.close()
+            else:
+                print("El cliente existe")
+                QMessageBox.information(self, "Error",
+                                        "El cliente ya existe, intente darlo de alta nuevamente.")

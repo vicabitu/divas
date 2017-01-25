@@ -14,8 +14,7 @@ class Cliente(Base):
     nombre = Column(String(120), index=True, nullable=False)
     apellido = Column(String(120), index=True, nullable=False)
 
-    def __init__(self, id, nombre, apellido):
-        self.id = id
+    def __init__(self, nombre, apellido):
         self.nombre = nombre
         self.apellido = apellido
 
