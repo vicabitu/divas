@@ -2,7 +2,7 @@
 Esta clase representa el controlador de la vista form_alta_servicio
 """
 
-from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
+from PyQt5.QtWidgets import QDialog, QMessageBox
 from vistas_py.form_alta_servicio import Ui_altaservicio
 from modelo.modelo import *
 from sqlalchemy import create_engine

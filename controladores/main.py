@@ -6,6 +6,7 @@ from vistas_py.menuprincipal import Ui_menuprincipal
 from controladores.controlador_alta_cliente import *
 from controladores.controlador_alta_servicio import *
 from controladores.controlador_nuevo_turno import *
+from controladores.controlador_listar_servicios import *
 
 class ControladorMenuPrincipal(QMainWindow):
 
@@ -29,11 +30,15 @@ class ControladorMenuPrincipal(QMainWindow):
         als = ControladorAltaServicio()
         als.exec_()
 
+    def listar_servicios(self):
+        print("listar servicios")
+        ls = ControladorListarServicios()
+        ls.exec_()
+
     def alta_turno(self):
         print("Nuevo turno")
         nt = ControladorNuevoTurno()
         nt.exec_()
-
 
 if __name__ == "__main__":
 
