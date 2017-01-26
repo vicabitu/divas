@@ -1,11 +1,17 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float, Date, DateTime
+from sqlalchemy import Column, Integer, String, Float, Date, DateTime, Table, ForeignKey
+from sqlalchemy.orm import relationship
 
 engine = create_engine('sqlite:///divas.db', echo=True)
 
 Base = declarative_base()
+
+turno_servicio = Table('turno_servicio', Base.metadata,
+    Column('turno_id', Integer, ForeignKey('turno.id')),
+    Column('servicio_id', Integer, ForeignKey('servicio.id'))
+)
 
 
 class Cliente(Base):
@@ -13,6 +19,7 @@ class Cliente(Base):
     id = Column(Integer, primary_key=True)
     nombre = Column(String(120), index=True, nullable=False)
     apellido = Column(String(120), index=True, nullable=False)
+    turno = relationship("Turno")
 
     def __init__(self, nombre, apellido):
         self.nombre = nombre
@@ -30,7 +37,9 @@ class Turno(Base):
     fecha_creacion = Column(Date, index=True, nullable=False)
     fecha_realizado = Column(DateTime, index=True, nullable=False)
     fecha_cancelacion = Column(Date, index=True, nullable=False)
-
+    cliente_id = Column(Integer, ForeignKey('cliente.id'))
+    control_ganancia_id = Column(Integer, ForeignKey('control_ganancia.id'), nullable=True)
+    servicios = relationship("Servicio", secondary=turno_servicio)
 
 class Servicio(Base):
     __tablename__ = 'servicio'
@@ -52,6 +61,7 @@ class ControlGanancia(Base):
     monto = Column(Float, index=True, nullable=False)
     fecha_inicio = Column(Date, index=True, nullable=False)
     fecha_fin = Column(Date, index=True, nullable=False)
+    turno = relationship("Turno")
 
     def __init__(self, monto, fecha_de_inicio, fecha_fin):
         self.monto = monto
