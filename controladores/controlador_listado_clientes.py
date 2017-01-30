@@ -17,10 +17,6 @@ class ControladorListadoClientes(QDialog):
         # conexion
         engine = create_engine('sqlite:///divas.db', echo=True)
 
-        # sesion
-        Session = sessionmaker(bind=engine)
-        session = Session()
-
         self.listar_clientes()
         self.form_listado_clientes.btn_eliminar.clicked.connect(self.eliminar_cliente)
         self.form_listado_clientes.btn_actualizar.clicked.connect(self.actualizar_lista)
@@ -37,23 +33,18 @@ class ControladorListadoClientes(QDialog):
 
     def eliminar_cliente(self):
 
-        Session = sessionmaker(bind=engine)
-        session = Session()
-
         cliente_item = self.form_listado_clientes.list_widget_clientes.currentItem().text() #Me quedo con el item de listwidget, es un string
 
         cliente_item_lista = cliente_item.split(' ') #separo a cliente_item para quedarme con el nombre, split me devuelve una lista
 
         nombre = cliente_item_lista.pop(1) #de la lista me quedo con el segundo indice que es nombre del cliente
 
-        cliente_a_eliminar = session.query(Cliente).filter(Cliente.nombre == nombre).first() #busco al cliente en la base para obtener el objeto
+        apellido = cliente_item_lista.pop(3) #de la lista me quedo con el cuarto indice que es apellido del cliente
 
-        print(cliente_a_eliminar.nombre)
-        print(cliente_a_eliminar.apellido)
 
         bc = ControladorBajaCliente() #instancio el form de baja cliente
-        bc.form_baja_cliente.text_nombre.setText(cliente_a_eliminar.nombre)
-        bc.form_baja_cliente.text_apellido.setText(cliente_a_eliminar.apellido)
+        bc.form_baja_cliente.text_nombre.setText(nombre)
+        bc.form_baja_cliente.text_apellido.setText(apellido)
         bc.exec_()
 
     def actualizar_lista(self):
